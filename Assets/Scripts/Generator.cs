@@ -6,7 +6,7 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     public GameObject cube;
-    public float spawnTime;
+    public float spawnTimeMin, spawnTimeMax;
 
     public void Start()
     {
@@ -17,8 +17,8 @@ public class Generator : MonoBehaviour
     {
         while (true)
         {
-            GameObject CubeRight = new GameObject();
-            GameObject CubeLeft = new GameObject();
+            GameObject CubeRight = null;
+            GameObject CubeLeft = null;
 
             if(Random.Range(0 , 100) < 70)
                 CubeRight = Instantiate(cube, transform.position + Vector3.right * 0.2f, Quaternion.identity);
@@ -38,9 +38,9 @@ public class Generator : MonoBehaviour
             {
                 if (CubeRight == null)
                     CubeLeft.GetComponent<Cube>().blue = Random.Range(0, 2) == 0? true : false;
-                CubeRight.GetComponent<Cube>().blue = false;
+                CubeLeft.GetComponent<Cube>().blue = false;
             }
-            yield return new WaitForSeconds(spawnTime);
+            yield return new WaitForSeconds(Random.Range(spawnTimeMin, spawnTimeMax));
         }
     }
 }

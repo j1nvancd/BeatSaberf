@@ -18,7 +18,7 @@ public class Cube : MonoBehaviour
             if(i != angle)
                 transform.GetChild(i).gameObject.SetActive(false);
             else if(!blue)
-           transform.GetChild(i).GetComponent<MeshRenderer>().material = materialRed;
+                transform.GetChild(i).GetComponent<MeshRenderer>().material = materialRed;
         }
     }
 
@@ -47,9 +47,15 @@ public class Cube : MonoBehaviour
     {
         if (x.gameObject.CompareTag("Left") || x.gameObject.CompareTag("Right"))
         {
-                print("centro");
-                GameManager.manager.TakeDamage();
-                Destroy(gameObject);
+            if (x.gameObject.GetComponent<Saber>().angle == angle)
+                CollisionDetected(x.gameObject.GetComponent<Saber>().blue);
+            else
+            {
+            print("centro");
+            GameManager.manager.TakeDamage();
+            Destroy(gameObject);
+            }
         }
+
     }
 }
